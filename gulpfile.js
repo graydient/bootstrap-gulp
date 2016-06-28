@@ -29,7 +29,7 @@ gulp.task('watch', ['browserSync' , 'sass'], function(){
 // Gulp Build task
 gulp.task('build', function (callback) {
   runSequence('clean:dist', 
-    ['sass', 'useref', 'images', 'fonts'],
+    ['sass', 'useref', 'images', 'fonts', 'font-awesome', 'browserSyncProd'],
     callback
   )
 })
@@ -77,11 +77,26 @@ gulp.task('fonts', function() {
   .pipe(gulp.dest('dist/fonts'))
 })
 
+// Gulp Font Awesome
+gulp.task('font-awesome', function() {
+  return gulp.src('font-awesome/**/*')
+  .pipe(gulp.dest('dist/font-awesome'))
+})
+
 // Browsersync Task
 gulp.task('browserSync', function() {
   browserSync.init({
     server: {
       baseDir: ''
+    },
+  })
+})
+
+// Browsersync Production Preview Task
+gulp.task('browserSyncProd', function() {
+  browserSync.init({
+    server: {
+      baseDir: 'dist'
     },
   })
 })
