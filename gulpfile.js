@@ -16,14 +16,11 @@ var del = require('del');
 
 var runSequence = require('run-sequence');
 
-
-// Gulp watch syntax
-gulp.task('watch', ['browserSync' , 'sass'], function(){
-  gulp.watch('scss/**/*.scss', ['sass']); 
-  // Reloads the browser whenever HTML or JS files change
-  gulp.watch('*.html', browserSync.reload); 
-  gulp.watch('js/**/*.js', browserSync.reload);
-  console.log('To stop watching type control c');
+// Gulp Dev Task
+gulp.task('default', function (callback) {
+  runSequence(['sass','browserSync', 'watch'],
+    callback
+  )
 })
 
 // Gulp Build task
@@ -32,6 +29,15 @@ gulp.task('build', function (callback) {
     ['sass', 'useref', 'images', 'fonts', 'font-awesome', 'browserSyncProd'],
     callback
   )
+})
+
+// Gulp watch syntax
+gulp.task('watch', ['browserSync' , 'sass'], function(){
+  gulp.watch('scss/**/*.scss', ['sass']); 
+  // Reloads the browser whenever HTML or JS files change
+  gulp.watch('*.html', browserSync.reload); 
+  gulp.watch('js/**/*.js', browserSync.reload);
+  console.log('To stop watching type control c');
 })
 
 // Convert sass to css
